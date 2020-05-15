@@ -13,16 +13,35 @@ pygame.display.set_icon(icon)
 playerImg=pygame.image.load("spaceship.png")
 playerX= 370
 playerY =480
+playerVelX=0
+playerVely=0
 
-def player():
-    screen.blit(playerImg, (playerX,playerY))
+def player(x,y):
+    screen.blit(playerImg, (x,y))
+
+def checkBound(x,y):
+    if x<0:
+        playerX=0
+    if x>800+63:
+        playerX=800-63
 
 #Game Loop
 running =True
 while running:
+    screen.fill((40,50,107))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running=False
-    screen.fill((40,50,107))
-    player()
+        if event.type==pygame.KEYDOWN:
+            if event.key== pygame.K_LEFT:
+                playerVelX-=0.3
+            if event.key== pygame.K_RIGHT:
+                playerVelX+=0.3
+        if event.type == pygame.KEYUP:
+            if event.key==pygame.K_LEFT or event.key==pygame.K_RIGHT:
+                playerVelX=0
+                
+    playerX+=playerVelX
+    checkBound(playerX,playerY)
+    player(playerX,playerY)
     pygame.display.update()
