@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -16,14 +17,21 @@ playerY =480
 playerVelX=0
 playerVely=0
 
+#Enemy
+enemyImg=pygame.image.load("alien.png")
+enemyX= random.randint(0,736)
+enemyY =random.randint(0,350)
+enemyVelX=0
+enemyVely=0
+
+
 def player(x,y):
     screen.blit(playerImg, (x,y))
 
-def checkBound(x,y):
-    if x<0:
-        playerX=0
-    if x>800+63:
-        playerX=800-63
+def enemy(x,y):
+    screen.blit(enemyImg, (x,y))
+
+
 
 #Game Loop
 running =True
@@ -42,6 +50,10 @@ while running:
                 playerVelX=0
                 
     playerX+=playerVelX
-    checkBound(playerX,playerY)
+    if playerX<0:
+        playerX=0
+    if playerX>737:
+        playerX=737
     player(playerX,playerY)
+    enemy(enemyX,enemyY)
     pygame.display.update()
