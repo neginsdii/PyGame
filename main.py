@@ -22,7 +22,7 @@ enemyImg=pygame.image.load("alien.png")
 enemyX= random.randint(0,736)
 enemyY =random.randint(0,350)
 enemyVelX=0.3
-enemyVely=0
+enemyVely=0.5
 
 
 def player(x,y):
@@ -42,9 +42,11 @@ while running:
             running=False
         if event.type==pygame.KEYDOWN:
             if event.key== pygame.K_LEFT:
-                playerVelX-=0.3
+                playerVelX-=0.4
             if event.key== pygame.K_RIGHT:
-                playerVelX+=0.3
+                playerVelX+=0.4
+            if event.key==pygame.K_ESCAPE:
+                running=False
         if event.type == pygame.KEYUP:
             if event.key==pygame.K_LEFT or event.key==pygame.K_RIGHT:
                 playerVelX=0
@@ -59,8 +61,11 @@ while running:
 
     if enemyX<0:
         enemyVelX=0.3
-    if enemyX>737:
-        enemyVelX=-0.3   
+        enemyY+=enemyVely
+    elif enemyX>737:
+        enemyVelX=-0.3  
+        enemyY+=enemyVely
+
     player(playerX,playerY)
     enemy(enemyX,enemyY)
     pygame.display.update()
